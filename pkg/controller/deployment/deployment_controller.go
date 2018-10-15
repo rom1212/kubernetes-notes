@@ -117,6 +117,9 @@ func NewDeploymentController(dInformer appsinformers.DeploymentInformer, rsInfor
 		Recorder:   dc.eventRecorder,
 	}
 
+	// Handlers when some events happens.
+	// For each event, just mostly add the object to the queue, and then process them later with Run() according
+	// to their event type (add, or update, or delete)
 	dInformer.Informer().AddEventHandler(cache.ResourceEventHandlerFuncs{
 		AddFunc:    dc.addDeployment,
 		UpdateFunc: dc.updateDeployment,
